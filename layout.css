@@ -59,7 +59,7 @@ h1{
   grid-template-rows: repeat(3, 1fr);
   gap: 10px;
   width: 40%;
-  height: 55%;
+  height: 65%;
   margin: 20px auto;
   padding: 10px;
   border-radius: 10px;
@@ -85,4 +85,11 @@ h1{
 
 .cell:active{
   transform: translateY(2px);
+}
+
+.symbol {
+  width: 70%;
+  height: 70%;
+  object-fit:contain;
+  pointer-events: none;
 }
