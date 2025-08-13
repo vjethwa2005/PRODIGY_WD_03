@@ -20,6 +20,7 @@
       <div class="cell" id="cell-7"></div>
       <div class="cell" id="cell-8"></div>
     </div>
+    <button class="reset" onclick="reset()">Reset</button>
   </div>
   <script>
     let currentPlayer = "X";
@@ -45,6 +46,12 @@ function checkWin(player) {
   return winningCombos.some(combo => {
     return combo.every(index => board[index] === player);
   });
+}
+
+function reset(){
+  board = ["", "", "", "", "", "", "", "", ""];
+  cells.forEach(cell => cell.innerHTML = "");
+  currentPlayer = "X";
 }
 
 function makeMove(index, player) {
