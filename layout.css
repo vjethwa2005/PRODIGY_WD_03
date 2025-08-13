@@ -93,3 +93,14 @@ h1{
   object-fit:contain;
   pointer-events: none;
 }
+
+.reset{
+  border: none;
+  outline:none;
+  background-color: var(--button-color);
+  padding:10px 15px;
+  border-radius: 15px;
+  color:var(--gradient-color);
+  font:var(--font);
+  margin-top:20px;
+}
