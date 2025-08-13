@@ -23,58 +23,75 @@
   </div>
   <script>
     let currentPlayer = "X";
-    let currentTurn = 0;
-    let gameStarted = false;
-    let gameOver = false;
-    let player1Color = "";
-    let player2Color = "";
+const x = "./sunlight.png";
+const o = "./rain.png";
+const cells = document.querySelectorAll(".cell");
 
-    const x = "./sunlight.png";
-    const o = "./rain.png";
+// Track board state
+let board = ["", "", "", "", "", "", "", "", ""];
 
-    const cells = document.querySelectorAll(".cell");
+function checkWin(player) {
+  const winningCombos = [
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+  ];
 
-    function checkWin(player) {
-      const winningCombos = [
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 4, 8],
-        [2, 4, 6]
-      ];
+  return winningCombos.some(combo => {
+    return combo.every(index => board[index] === player);
+  });
+}
 
-      return winningCombos.some(combo => {
-        return combo.every(index => {
-          const img = cells[index].querySelector("img");
-          return img && img.alt === player;
-        });
-      });
+function makeMove(index, player) {
+  if (board[index] === "") {
+    board[index] = player;
+    const img = document.createElement("img");
+    img.src = player === "X" ? x : o;
+    img.alt = player;
+    img.classList.add("symbol");
+    cells[index].appendChild(img);
+    return true;
+  }
+  return false;
+}
+
+function aiMove() {
+  // Pick a random empty cell
+  let emptyCells = board
+    .map((val, idx) => (val === "" ? idx : null))
+    .filter(idx => idx !== null);
+
+  if (emptyCells.length > 0) {
+    const randomIndex = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+    makeMove(randomIndex, "O");
+
+    if (checkWin("O")) {
+      setTimeout(() => alert("O wins!"), 100);
+    } else if (board.every(cell => cell !== "")) {
+      setTimeout(() => alert("It's a draw!"), 100);
     }
+  }
+}
 
-    cells.forEach(cell => {
-      cell.addEventListener("click", () => {
-        if (!cell.querySelector("img")) {
-          const img = document.createElement("img");
-          img.src = currentPlayer === "X" ? x : o;
-          img.alt = currentPlayer;
-          img.classList.add("symbol");
-          cell.appendChild(img);
+cells.forEach((cell, index) => {
+  cell.addEventListener("click", () => {
+    if (makeMove(index, "X")) {
+      if (checkWin("X")) {
+        setTimeout(() => alert("X wins!"), 100);
+      } else if (board.every(cell => cell !== "")) {
+        setTimeout(() => alert("It's a draw!"), 100);
+      } else {
+        setTimeout(aiMove, 1000);
+      }
+    }
+  });
+});
 
-          if (checkWin(currentPlayer)) {
-            alert(currentPlayer + " wins!");
-            return;
-          }
-
-          currentPlayer = currentPlayer === "X" ? "O" : "X";
-          if ([...cells].every(cell => cell.querySelector("img"))) {
-            alert("It's a draw!");
-          }
-        }
-      });
-    });
   </script>
 </body>
 </html>
