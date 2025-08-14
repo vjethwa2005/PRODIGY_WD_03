@@ -19,7 +19,7 @@ This is **Task 3** of my **Prodigy Infotech Internship**, where I built a **Tic-
 ---
 
 ## 📷 Demo  
-![Preview](https://drive.google.com/file/d/1mnV6NOS4Pq399rCMDqBdloBkEaw0meie/view?usp=sharing) 
+▶️ [Click here to watch the demo](https://drive.google.com/file/d/1mnV6NOS4Pq399rCMDqBdloBkEaw0meie/view?usp=sharing)
 
 ---
 
